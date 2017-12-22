@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "870480826350",
+    "project_id": "kohakuapp"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:870480826350:android:36ba316c26372d0a",
+        "android_client_info": {
+          "package_name": "com.alexandre.kohakuapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "870480826350-8oa49nluomg2nvlbg0rmsflp29cshkig.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.alexandre.kohakuapp",
+            "certificate_hash": "fc27bbaea85d82b4e503532cea3e1bb34f96df0b"
+          }
+        },
+        {
+          "client_id": "870480826350-8i26q4c3nauut70jimf9riu34ise65rf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAgjUhLTL6xbocmDp4y0oekhC_WbSccvSU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
