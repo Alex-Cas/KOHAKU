@@ -29,7 +29,7 @@ public class HomeSearchActivity extends AppCompatActivity implements View.OnClic
 
     private void gotoSearchByBrowse(){
         Log.e(TAG, "Going to Continent Browse");
-        Intent myIntent = new Intent(HomeSearchActivity.this,
+        Intent myIntent = new Intent(getBaseContext(),
                 ContinentBrowseActivity.class);
         startActivity(myIntent);
     }

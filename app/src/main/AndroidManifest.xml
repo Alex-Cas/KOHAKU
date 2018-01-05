@@ -16,7 +16,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".HomeSearchActivity" />
-        <activity android:name=".ContinentBrowseActivity"></activity>
+        <activity android:name=".ContinentBrowseActivity" />
+        <activity android:name=".CountryBrowseActivity"></activity>
     </application>
 
 </manifest>

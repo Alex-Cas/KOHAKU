@@ -1,5 +1,6 @@
 package com.alexandre.kohakuapp;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -31,19 +32,30 @@ public class ContinentBrowseActivity extends AppCompatActivity {
 
             Button btn = new Button(this);
             btn.setId(i);
-            String my = getStringResourceByName("continent_" + continents[i]);
+            String continentName = getStringResourceByName("continent_" + continents[i]);
 
-            btn.setText(my);
+            btn.setText(continentName);
             //btn.setBackgroundColor(Color.rgb(70, 80, 90));
             linear.addView(btn, params);
-
-            final Button btn1 = ((Button) findViewById(i));
-            btn1.setOnClickListener(new View.OnClickListener() {
+            final String continentNameFinal = continentName;
+            final int iFinal = i;
+            final Button btnFinal = ((Button) findViewById(i));
+            btnFinal.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view) {
-                    Log.e(TAG,"Le bouton " + btn1.getText() + " a été cliqué");
+                    Log.e(TAG,"Le bouton " + btnFinal.getText() + " a été cliqué");
+                    gotoCountryBrowse(continents[iFinal], continentNameFinal);
                 }
             });
         }
+    }
+
+    private void gotoCountryBrowse(String s1, String s2){
+        Log.e(TAG, "Going to Country Browse");
+        Intent myIntent = new Intent(getBaseContext(),
+                CountryBrowseActivity.class);
+        myIntent.putExtra("continent_id", s1);
+        myIntent.putExtra("continent_name", s2);
+        startActivity(myIntent);
     }
 
     private String getStringResourceByName(String aString) {

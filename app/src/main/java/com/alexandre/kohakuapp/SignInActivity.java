@@ -115,7 +115,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
     private void gotoHomeSearch(){
         Log.e(TAG, "Going to Home Search");
-        Intent myIntent = new Intent(SignInActivity.this,
+        Intent myIntent = new Intent(getBaseContext(),
                 HomeSearchActivity.class);
         startActivity(myIntent);
     }
