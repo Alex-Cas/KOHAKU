@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">KohakuApp</string>
+    <string name="sign_out_button">Sign Out</string>
+    <string name="goto_home_search">Find a River !</string>
+    <string name="goto_search_by_input">Search Rivers</string>
+    <string name="goto_search_by_browse">Browse Rivers</string>
+    <string name="goto_search_by_map">Map</string>
+    <string name="continent_NA">North America</string>
+    <string name="continent_SA">South and Central America</string>
+    <string name="continent_AF">Africa</string>
+    <string name="continent_EU">Europe</string>
+    <string name="continent_AS">Asia</string>
+    <string name="continent_OC">Oceania</string>
 </resources>
