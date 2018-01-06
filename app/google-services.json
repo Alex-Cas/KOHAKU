@@ -1,7 +1,9 @@
 {
   "project_info": {
     "project_number": "870480826350",
-    "project_id": "kohakuapp"
+    "firebase_url": "https://kohakuapp.firebaseio.com",
+    "project_id": "kohakuapp",
+    "storage_bucket": "kohakuapp.appspot.com"
   },
   "client": [
     {
@@ -35,11 +37,16 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "870480826350-8i26q4c3nauut70jimf9riu34ise65rf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
-          "status": 1
+          "status": 2
         }
       }
     }
