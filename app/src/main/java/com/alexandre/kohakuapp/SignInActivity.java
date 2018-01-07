@@ -45,7 +45,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
     private DatabaseReference mDatabase;
 
-    private static final String t = "870480826350-8i26q4c3nauut70jimf9riu34ise65rf.apps.googleusercontent.com";
+    //private static final String t = "870480826350-8i26q4c3nauut70jimf9riu34ise65rf.apps.googleusercontent.com";
 
 
     @Override
@@ -61,7 +61,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
         // Configure Google Sign In
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(t)
+                .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
         // Build a GoogleSignInClient with the options specified by gso.
