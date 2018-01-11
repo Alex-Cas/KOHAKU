@@ -22,15 +22,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
 
 public class SignInActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -45,10 +37,6 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
     private FirebaseAuth mAuth;
 
-    private DatabaseReference mDatabase;
-
-    private ArrayList<River> myRiverList;
-
     //private static final String t = "870480826350-8i26q4c3nauut70jimf9riu34ise65rf.apps.googleusercontent.com";
 
 
@@ -59,8 +47,6 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         setTitle("Home");
 
         mAuth = FirebaseAuth.getInstance();
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-        myRiverList = new ArrayList<River>();
 
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
@@ -85,9 +71,6 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
         gotoHomeSearch = (Button) findViewById(R.id.goto_home_search);
         gotoHomeSearch.setOnClickListener(this);
-
-        Button testButton = (Button) findViewById(R.id.testButton);
-        testButton.setOnClickListener(this);
 
         // Check for existing Google Sign In account, if the user is already signed in
         // the GoogleSignInAccount will be non-null.
@@ -214,58 +197,9 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
             case R.id.goto_home_search:
                 gotoHomeSearch();
                 break;
-            case R.id.testButton:
-                testDb();
-                break;
         }
     }
 
 
-    private void testDb(){
-        /* Tests pour la database */
-        Log.e(TAG, mDatabase.child("test").getKey());
-        DatabaseReference ref = mDatabase.child("rivers/");
-        ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                String b = "";
-
-                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-                    // TODO: handle the post
-                   /* String s, e;
-                    s = postSnapshot.getKey();
-                    e = postSnapshot.getValue(String.class);
-
-                    b = b + s + ": " + e + ", ";*/
-                    River myRiver = postSnapshot.getValue(River.class);
-                    myRiverList.add(myRiver);
-
-                }
-
-                for(River tmp : myRiverList){
-                    b = b + " " + tmp.getName();
-                }
-
-                showDbText(b);
-
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                /*String value = dataSnapshot.getValue(String.class);
-                Log.d(TAG, "Value is: " + value);*/
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.w(TAG, "Failed to read value.", error.toException());
-            }
-        });
-    }
-
-    private void showDbText(String s1){
-        TextView t1 = (TextView) findViewById(R.id.dbText1);
-        t1.setText(s1);
-    }
 
 }

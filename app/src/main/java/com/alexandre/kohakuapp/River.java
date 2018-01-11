@@ -5,10 +5,11 @@ import com.google.firebase.database.IgnoreExtraProperties;
 /**
  * Created by Alexandre on 11/01/2018.
  */
+
 @IgnoreExtraProperties
 public class River {
 
-    private String name;
+    private String name, continent, country;
 
     public River(){
 
@@ -20,5 +21,11 @@ public class River {
 
     public String getName(){
         return this.name;
+    }
+    public String getContinent(){
+        return this.continent;
+    }
+    public String getCountry(){
+        return this.country;
     }
 }

@@ -11,4 +11,8 @@
     <string name="continent_EU">Europe</string>
     <string name="continent_AS">Asia</string>
     <string name="continent_OC">Oceania</string>
+    <string name="EU_SZ">Switzerland</string>
+    <string name="EU_FR">France</string>
+    <string name="NA_US">United States</string>
+
 </resources>
