@@ -67,15 +67,15 @@ public class ContinentBrowseActivity extends AppCompatActivity {
 
     /*
     Start the CountryBrowse activity
-    Takes in parameters the key of the continent
+    Takes in parameter the key of the continent
      */
-    private void gotoCountryBrowse(String s1) {
+    private void gotoCountryBrowse(String s) {
         Log.e(TAG, "Going to Country Browse");
         Intent myIntent = new Intent(getBaseContext(),
                 CountryBrowseActivity.class);
 
         //Variable to pass to the next activity
-        myIntent.putExtra("continent_id", s1);
+        myIntent.putExtra("continent_id", s);
 
         startActivity(myIntent);
     }

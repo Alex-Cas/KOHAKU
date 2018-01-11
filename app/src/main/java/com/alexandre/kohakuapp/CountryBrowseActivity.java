@@ -116,9 +116,8 @@ public class CountryBrowseActivity extends AppCompatActivity {
 
         Button btn = new Button(this);
 
-        //Store the current id generated then increment it
+        //Store the current id generated
         int id = id_gen;
-        id_gen++;
         btn.setId(id);
 
         //Get the full country name from the resources in the format CONTINENT_COUNTRY
@@ -143,7 +142,7 @@ public class CountryBrowseActivity extends AppCompatActivity {
         });
 
         //Change the id generator
-        id_gen++ ;
+        id_gen++;
     }
 
     /*
