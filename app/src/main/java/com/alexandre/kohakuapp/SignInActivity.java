@@ -30,6 +30,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
+
 public class SignInActivity extends AppCompatActivity implements View.OnClickListener{
 
     private GoogleSignInClient mGoogleSignInClient;
@@ -45,6 +47,8 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
     private DatabaseReference mDatabase;
 
+    private ArrayList<River> myRiverList;
+
     //private static final String t = "870480826350-8i26q4c3nauut70jimf9riu34ise65rf.apps.googleusercontent.com";
 
 
@@ -56,6 +60,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
+        myRiverList = new ArrayList<River>();
 
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
@@ -219,7 +224,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     private void testDb(){
         /* Tests pour la database */
         Log.e(TAG, mDatabase.child("test").getKey());
-        DatabaseReference ref = mDatabase.child("mess/");
+        DatabaseReference ref = mDatabase.child("rivers/");
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -228,11 +233,18 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
                     // TODO: handle the post
-                    String s, e;
+                   /* String s, e;
                     s = postSnapshot.getKey();
                     e = postSnapshot.getValue(String.class);
 
-                    b = b + s + ": " + e + ", ";
+                    b = b + s + ": " + e + ", ";*/
+                    River myRiver = postSnapshot.getValue(River.class);
+                    myRiverList.add(myRiver);
+
+                }
+
+                for(River tmp : myRiverList){
+                    b = b + " " + tmp.getName();
                 }
 
                 showDbText(b);
