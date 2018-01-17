@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -15,55 +14,45 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
+public class RiverBrowseActivity extends AppCompatActivity {
 
-public class CountryBrowseActivity extends AppCompatActivity {
+    private String country_id;
 
-    private static String continent_id;
-
-    private final static String TAG = "CountryBrowse Logs";
+    private final static String TAG = "RiverBrowse Logs";
 
     private DatabaseReference mDatabase;
 
-    //List of all the countries displayed
-    private ArrayList<String> myCountryList;
-
     private LinearLayout linear;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_country_browse);
+        setContentView(R.layout.activity_river_browse);
+
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            continent_id = extras.getString("continent_id");
+            country_id = extras.getString("country_id");
             //The key argument here must match that used in the other activity
         }
 
-        setTitle(getStringResourceByName("continent_" + continent_id));
+        setTitle(getStringResourceByName(country_id));
 
         //Init
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        myCountryList = new ArrayList<>();
         linear = (LinearLayout) findViewById(R.id.layout);
 
-        getCountries();
-
+        getRivers();
     }
 
-
-    /*
-    This function will read all the rivers in the database
-    and add a button for every unique country in the current continent
-     */
-    private void getCountries(){
+    private void getRivers(){
 
         //Get a db reference of the "rivers" folder
         DatabaseReference ref = mDatabase.child("rivers/");
 
-        //Query will filter all rivers which are in the current continent
-        //by checking the /continent/ field
-        ref.orderByChild("continent/").equalTo(continent_id).addValueEventListener(new ValueEventListener() {
+        //Query will filter all rivers which are in the current country
+        //by checking the /country/ field
+        ref.orderByChild("country/").equalTo(country_id).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -76,7 +65,7 @@ public class CountryBrowseActivity extends AppCompatActivity {
                     River myRiver = postSnapshot.getValue(River.class);
 
                     //Try to add a button with the river's country name
-                    addCountryButton(myRiver);
+                    addRiverButton(myRiver);
 
                 }
 
@@ -88,23 +77,17 @@ public class CountryBrowseActivity extends AppCompatActivity {
                 Log.w(TAG, "Failed to read value.", error.toException());
             }
         });
+
     }
 
 
     /*
-    This function will try to create and add a button to get to the river's country page
+    This function will try to create and add a button to get to the river's info page
     Takes an object of the River class in parameter
      */
-    private void addCountryButton(River r){
-        Log.e(TAG, r.getName() + " " + r.get_id());
+    private void addRiverButton(River r){
 
-        //If the country's name is already displayed in a button
-        for(String s : myCountryList){
-            if(s.equals(r.getCountry())) return;
-        }
-
-        //If we get to this point, then the current country is not yet displayed
-        myCountryList.add(r.getCountry());
+        Log.e(TAG, r.getName());
 
         //Linear layout parameters
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
@@ -118,10 +101,10 @@ public class CountryBrowseActivity extends AppCompatActivity {
         btn.setId(id);
 
         //Get the full country name from the resources in the format CONTINENT_COUNTRY
-        String countryName = getStringResourceByName(r.getCountry());
+        String riverName = r.getName();
 
         //Set the text of the button
-        btn.setText(countryName);
+        btn.setText(riverName);
 
         //Add the button to the layout
         linear.addView(btn, params);
@@ -133,18 +116,19 @@ public class CountryBrowseActivity extends AppCompatActivity {
         btnFinal.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 Log.e(TAG, "Le bouton " + btnFinal.getText() + " a été cliqué");
-                gotoRiverBrowse(finalRiver.getCountry());
+                gotoRiverInfo(finalRiver.get_id());
             }
         });
+
     }
 
-    private void gotoRiverBrowse(String s) {
-        Log.e(TAG, "Going to River Browse: " + s);
+    private void gotoRiverInfo(int i) {
+        Log.e(TAG, "Going to River Info");
         Intent myIntent = new Intent(getBaseContext(),
-                RiverBrowseActivity.class);
+                RiverInfoActivity.class);
 
         //Variable to pass to the next activity
-        myIntent.putExtra("country_id", s);
+        myIntent.putExtra("river_id", i);
 
         startActivity(myIntent);
     }
@@ -159,4 +143,5 @@ public class CountryBrowseActivity extends AppCompatActivity {
         int resId = getResources().getIdentifier(aString, "string", packageName);
         return getString(resId);
     }
+
 }

@@ -17,7 +17,9 @@
         </activity>
         <activity android:name=".HomeSearchActivity" />
         <activity android:name=".ContinentBrowseActivity" />
-        <activity android:name=".CountryBrowseActivity"></activity>
+        <activity android:name=".CountryBrowseActivity" />
+        <activity android:name=".RiverInfoActivity" />
+        <activity android:name=".RiverBrowseActivity"></activity>
     </application>
 
 </manifest>
