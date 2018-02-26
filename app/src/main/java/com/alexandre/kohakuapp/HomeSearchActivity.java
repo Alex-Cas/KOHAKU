@@ -34,11 +34,19 @@ public class HomeSearchActivity extends AppCompatActivity implements View.OnClic
         startActivity(myIntent);
     }
 
+    private void gotoSearchByInput(){
+        Log.e(TAG, "Going to Text Search");
+        Intent myIntent = new Intent(getBaseContext(),
+                InputSearchActivity.class);
+        startActivity(myIntent);
+    }
+
     @Override
     public void onClick(View v){
         switch (v.getId()) {
             case R.id.goto_search_by_input:
                 Log.e(TAG, "Search By Input (wip)");
+                gotoSearchByInput();
                 break;
             case R.id.goto_search_by_browse:
                 Log.e(TAG, "Search By Browse");

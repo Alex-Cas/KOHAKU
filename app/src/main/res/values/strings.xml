@@ -14,4 +14,5 @@
     <string name="EU_SZ">Switzerland</string>
     <string name="EU_FR">France</string>
     <string name="NA_US">United States</string>
+    <string name="input_search_placeholder">Type here ...</string>
 </resources>
