@@ -8,6 +8,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 public class ContinentBrowseActivity extends AppCompatActivity {
 
     private final static String[] continents = {"NA","SA", "EU", "AF", "AS", "OC"};
@@ -23,6 +29,15 @@ public class ContinentBrowseActivity extends AppCompatActivity {
         linear = (LinearLayout) findViewById(R.id.layout);
 
         addContinentButtons();
+
+        //Blank database connection so it's faster the next times
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("rivers/");
+        ref.orderByChild("continent/").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {}
+            @Override
+            public void onCancelled(DatabaseError error) {}
+        });
 
     }
 
