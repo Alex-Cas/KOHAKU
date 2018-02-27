@@ -8,6 +8,7 @@ import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.algolia.search.saas.AlgoliaException;
@@ -26,11 +27,15 @@ public class InputSearchActivity extends AppCompatActivity {
     Client client = new Client("LB1Q6RJR95", "7f85033618828217019ec8cea1736c06");
     Index index = client.getIndex("dev_RIVERS");
 
+    private LinearLayout linear;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_input_search);
+
+        linear = (LinearLayout) findViewById(R.id.layout);
 
 
         //Event when the algolia request is completed
@@ -43,7 +48,6 @@ public class InputSearchActivity extends AppCompatActivity {
             }
 
         };
-
 
         final EditText input_search = (EditText) findViewById(R.id.input_search);
 
@@ -74,11 +78,44 @@ public class InputSearchActivity extends AppCompatActivity {
     //WIP (parsing the json object)
     private void parseHits(JSONObject o){
 
-
         try {
-            JSONArray ar = o.getJSONArray("hits");
-            JSONObject ob = ar.getJSONObject(0);
-            Log.e(TAG, "Parsing: " + ob.getString("name").toString());
+
+
+            printResultInfo(o);
+
+
+            // Array of results
+            JSONArray hits = o.getJSONArray("hits");
+
+            // Number of hits
+            int len = o.getInt("nbHits");
+
+            if(len > 0){
+                for(int i=0; i<len; i++){
+                    Log.e(TAG, "Hit " + i + ": " + hits.getJSONObject(i).getString("name").toString());
+
+                    JSONObject hit = hits.getJSONObject(i);
+                    JSONObject hl_hit = hit.getJSONObject("_highlightResult");
+
+                    //Linear layout parameters
+                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.MATCH_PARENT,
+                            LinearLayout.LayoutParams.WRAP_CONTENT);
+
+                    TextView tv = new TextView(this);
+
+                    tv.append("id: " + hit.getString("_id") + "\n");
+                    tv.append("name: " + hit.getString("name") + "\n");
+                    tv.append("country: " + hit.getString("country") + "\n");
+                    tv.append("objectID: " + hit.getString("objectID") + "\n");
+                    tv.append("More: " + hl_hit.getJSONObject("name").getString("value") + "\n\n");
+
+                    linear.addView(tv, params);
+
+
+                }
+            }
+            //Log.e(TAG, "Parsing: " + ob.getString("name").toString());
         }
         catch (JSONException e) {
             Log.e(TAG, "Could not parse: ", e);
@@ -86,5 +123,29 @@ public class InputSearchActivity extends AppCompatActivity {
 
     }
 
+    private void printResultInfo(JSONObject o){
+        //Linear layout parameters
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT);
+
+        TextView tv = new TextView(this);
+        try{
+            tv.append("Results for: ");
+            tv.append(o.getString("query") + "\n");
+            tv.append("Number of hits: ");
+            tv.append( Integer.toString(o.getInt("nbHits")) + "\n");
+            tv.append("Processing time (ms): ");
+            tv.append( Integer.toString(o.getInt("processingTimeMS")) + "\n\n");
+
+            linear.addView(tv, params);
+
+        }catch (JSONException e) {
+            Log.e(TAG, "Could not parse: ", e);
+        }
+
+
+
+    }
 
 }

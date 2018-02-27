@@ -17,8 +17,15 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:inputType="text"
-        android:text="@string/input_search_placeholder"
-        android:textStyle="italic"
         android:singleLine="true"
-        android:imeOptions="actionDone"/>
+        android:imeOptions="actionDone"
+        android:hint="@string/input_search_placeholder" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/input_search"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/layout"></LinearLayout>
 </RelativeLayout>
