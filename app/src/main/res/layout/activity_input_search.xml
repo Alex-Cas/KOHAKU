@@ -27,5 +27,13 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/input_search"
         android:layout_centerHorizontal="true"
-        android:id="@+id/layout"></LinearLayout>
+        android:id="@+id/layout">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/progressBar"
+            android:layout_gravity="center_horizontal"
+            android:progressDrawable="@drawable/circular_progress_bar"/>
+    </LinearLayout>
 </RelativeLayout>

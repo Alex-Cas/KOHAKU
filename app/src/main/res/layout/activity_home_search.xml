@@ -32,4 +32,6 @@
         android:id="@+id/goto_search_by_map"
         android:layout_below="@+id/goto_search_by_browse"
         android:layout_centerHorizontal="true" />
+
+
 </RelativeLayout>
