@@ -5,11 +5,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.ProgressBar;
 
 import com.algolia.search.saas.AlgoliaException;
 import com.algolia.search.saas.Client;
@@ -29,6 +31,8 @@ public class InputSearchActivity extends AppCompatActivity {
 
     private LinearLayout linear;
 
+    private ProgressBar spinner;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +41,8 @@ public class InputSearchActivity extends AppCompatActivity {
 
         linear = (LinearLayout) findViewById(R.id.layout);
 
+        spinner  = (ProgressBar) findViewById(R.id.progressBar);
+        spinner.setVisibility(View.GONE);
 
         //Event when the algolia request is completed
         final CompletionHandler completionHandler = new CompletionHandler() {
@@ -57,6 +63,9 @@ public class InputSearchActivity extends AppCompatActivity {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 //If the user clicks on "done" on the keyboard
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
+
+                    //Loading Spinner
+                    spinner.setVisibility(View.VISIBLE);
 
                     //Close the keyboard of the user
                     InputMethodManager imm = (InputMethodManager)v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -79,6 +88,8 @@ public class InputSearchActivity extends AppCompatActivity {
     private void parseHits(JSONObject o){
 
         try {
+
+            spinner.setVisibility(View.GONE);
 
             linear.removeAllViews();
 

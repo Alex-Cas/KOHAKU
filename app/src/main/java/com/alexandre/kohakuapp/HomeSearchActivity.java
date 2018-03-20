@@ -6,11 +6,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 
 public class HomeSearchActivity extends AppCompatActivity implements View.OnClickListener{
 
     //private Button gotoSearchByInput, gotoSearchByBrowse, gotoSearchByMap;
     private final static String TAG = "HomeSearch Logs";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +26,7 @@ public class HomeSearchActivity extends AppCompatActivity implements View.OnClic
         gotoSearchByBrowse.setOnClickListener(this);
         Button gotoSearchByMap = (Button) findViewById(R.id.goto_search_by_map);
         gotoSearchByMap.setOnClickListener(this);
+
 
     }
 
