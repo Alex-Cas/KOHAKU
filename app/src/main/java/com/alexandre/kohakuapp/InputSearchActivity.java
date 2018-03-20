@@ -80,6 +80,7 @@ public class InputSearchActivity extends AppCompatActivity {
 
         try {
 
+            linear.removeAllViews();
 
             printResultInfo(o);
 
